@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./bootstrap.css">
+ 
+</head>
+<body>
+<div id="div"> 
+
+</div>
+</body>
+<script>
+var ajax = {
+        gets(url, fun) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState == 4) {
+                    fun(xhr.responseText)
+                }
+            }
+            xhr.open('get', url);
+            xhr.send()
+
+        },
+        posts(url, d, fun) {
+            var xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    fun(xhr.responseText);
+                }
+            }
+            xhr.open('post', url);
+            xhr.send(d);
+        }
+    }
+
+    function getQueryString(name) {
+        const reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        const urlObj=window.location;
+        var r =urlObj.href.indexOf('#')>-1? urlObj.hash.split("?")[1].match(reg) : urlObj.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    } 
+    ajax.gets('http://127.0.0.1:9000/getone',function(a){
+        
+        var data=JSON.parse(a);
+        // console.log(data)
+        console.log('wqweqqeq')
+        var s='';
+        for(let i=0;i<data.length;i++){
+                if(getQueryString('id')==data[i].id){
+                    s+=`<h1>${data[i].id}</h1>
+                    <h1>${data[i].name}</h1>
+                    <h1>${data[i].nengli}</h1>
+                    <h1>${data[i].jituan}</h1>
+                <img src="http://127.0.0.1:9000/img/${data[i].img}">
+                    `
+
+                }
+                
+        }
+document.getElementById('div').innerHTML=s;
+})
+</script>
+</html>

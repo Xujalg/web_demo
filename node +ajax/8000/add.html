@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 800px;
+            height: 500px;
+            text-align: center;
+        }
+
+        td {
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="/add" method="post" id="xjl">
+        
+        <table >
+            
+            <tr>
+                <td>姓名</td>
+                <td><input name="name" type="text" value=""></td>
+            </tr>
+            <tr>
+                <td>能力</td>
+                <td><input name="nengli" type="text" value=""></td>
+            </tr>
+            <tr>
+                    <td>团体</td>
+                    <td><input name="jituan" type="text" value=""></td>
+                </tr>
+            <tr>
+                <td>上传图片</td>
+                <td><input type="file" id="pic"  name="img"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" id="btn"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+<script>
+
+document.getElementById('btn').onclick=()=>{
+    console.log('qwer')
+    var formData = new FormData(document.getElementById('xjl'));
+    var ajax=new XMLHttpRequest();
+    ajax.onreadystatechange=()=>{
+        if(ajax.readyState==4){
+            if(ajax.responseText==1){
+            location.href = '/index.html';}
+        }
+    }
+   
+    ajax.open('POST','http://127.0.0.1:9000/add');
+    ajax.send(formData)
+}
+
+</script>
+</html>
